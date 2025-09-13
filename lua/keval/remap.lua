@@ -5,10 +5,10 @@ local km = vim.keymap
 km.set("n", "<leader>kv", vim.cmd.Ex)
 
 -- Telescope
-km.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find files" })
-km.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Live grep" })
-km.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "List buffers" })
-km.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Help tags" })
+-- km.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find files" })
+-- km.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Live grep" })
+-- km.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "List buffers" })
+-- km.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Help tags" })
 
 -- Quick save / quit
 km.set("n", "<leader>w", ":w<CR>", { desc = "Save file" })

@@ -4,7 +4,7 @@ vim.g.have_nerd_font = false
 require("keval.set")
 require("keval.remap")
 require("keval.lazy_init")
-require("keval.lsp")
+-- require("keval.lsp")
 require("keval.treesitter")
 require("keval.auto_commands")
 
