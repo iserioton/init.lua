@@ -1,5 +1,6 @@
 --  See `:help vim.keymap.set()`
 local km = vim.keymap
+local opts = { noremap = true, silent = true }
 
 -- File explorer
 km.set("n", "<leader>kv", vim.cmd.Ex)
@@ -9,6 +10,7 @@ km.set("n", "<leader>kv", vim.cmd.Ex)
 -- km.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Live grep" })
 -- km.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "List buffers" })
 -- km.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Help tags" })
+km.set("n", "<leader>fm", function() vim.lsp.buf.format { async = true } end, opts) -- Format
 
 -- Quick save / quit
 km.set("n", "<leader>w", ":w<CR>", { desc = "Save file" })
@@ -24,12 +26,12 @@ km.set("n", "<leader>w", ":w<CR>", { desc = "Save file" })
 km.set("n", "<leader>gg", ":Neogit<CR>", { noremap = true, silent = true })
 
 -- Copy to system clipboard
-km.set("v", "<leader>y", '"+y', { noremap = true, silent = true })      -- Visual mode: copy selection
-km.set("n", "<leader>Y", '"+yy', { noremap = true, silent = true })     -- Normal mode: copy current line
+km.set("n", "<leader>Y", '"+yy', { noremap = true, silent = true }) -- Normal mode: copy current line
+km.set("n", "<leader>Y", '"+yy', { noremap = true, silent = true }) -- Normal mode: copy current line
 
 -- Paste from system clipboard
-km.set("n", "<leader>p", '"+p', { noremap = true, silent = true })      -- Normal mode: paste
-km.set("v", "<leader>p", '"+p', { noremap = true, silent = true })      -- Visual mode: paste
+km.set("n", "<leader>p", '"+p', { noremap = true, silent = true }) -- Normal mode: paste
+km.set("v", "<leader>p", '"+p', { noremap = true, silent = true }) -- Visual mode: paste
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -65,5 +67,3 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- vim.keymap.set("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
 -- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
 -- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
-
-
