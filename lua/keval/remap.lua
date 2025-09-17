@@ -1,6 +1,5 @@
 --  See `:help vim.keymap.set()`
 local km = vim.keymap
-local opts = { noremap = true, silent = true }
 
 -- File explorer
 km.set("n", "<leader>kv", vim.cmd.Ex)
@@ -10,7 +9,26 @@ km.set("n", "<leader>kv", vim.cmd.Ex)
 -- km.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Live grep" })
 -- km.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "List buffers" })
 -- km.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Help tags" })
-km.set("n", "<leader>fm", function() vim.lsp.buf.format { async = true } end, opts) -- Format
+km.set("n", "<leader>fm", function() vim.lsp.buf.format { async = true } end,
+  { desc = "Formate the buffer", noremap = true, silent = true })
+km.set("n", "<leader>bd", ":bd<CR>", { desc = "Delete current buffer" })
+
+km.set("n", "<leader>tw", function()
+  vim.o.wrap = not vim.o.wrap
+  print("Line wrap " .. (vim.o.wrap and "enabled" or "disabled"))
+end, { desc = "Toggle line wrap" })
+
+-- Open a vertical split on the right
+km.set("n", "<leader>sv", ":vsplit<CR>", { desc = "Vertical split" })
+
+-- Open a horizontal split below
+km.set("n", "<leader>sh", ":split<CR>", { desc = "Horizontal split" })
+
+-- Close current split
+km.set("n", "<leader>sc", "<C-w>c", { desc = "Close split" })
+
+-- Close all other splits
+km.set("n", "<leader>so", "<C-w>o", { desc = "Close other splits" })
 
 -- Quick save / quit
 km.set("n", "<leader>w", ":w<CR>", { desc = "Save file" })
@@ -25,13 +43,23 @@ km.set("n", "<leader>w", ":w<CR>", { desc = "Save file" })
 -- git
 km.set("n", "<leader>gg", ":Neogit<CR>", { noremap = true, silent = true })
 
+-- Super useful when replacing words multiple times with the same yank
+km.set("x", "<leader>p", [["_dP]], { desc = "Super useful when replacing words multiple times with the same yank" })
+
+-- Lets you copy from Neovim → paste into your browser, Slack, etc
+km.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Lets you copy from Neovim → paste into your browser, Slack, etc" })
+km.set("n", "<leader>Y", [["+Y]])
+
+-- delete without touching your yank register.
+km.set({ "n", "v" }, "<leader>d", "\"_d", { desc = "Delete without touching your yank register" })
+
 -- Copy to system clipboard
-km.set("n", "<leader>Y", '"+yy', { noremap = true, silent = true }) -- Normal mode: copy current line
-km.set("n", "<leader>Y", '"+yy', { noremap = true, silent = true }) -- Normal mode: copy current line
+-- km.set("n", "<leader>Y", '"+yy', { noremap = true, silent = true }) -- Normal mode: copy current line
+-- km.set("n", "<leader>Y", '"+yy', { noremap = true, silent = true }) -- Normal mode: copy current line
 
 -- Paste from system clipboard
-km.set("n", "<leader>p", '"+p', { noremap = true, silent = true }) -- Normal mode: paste
-km.set("v", "<leader>p", '"+p', { noremap = true, silent = true }) -- Visual mode: paste
+-- km.set("n", "<leader>p", '"+p', { noremap = true, silent = true }) -- Normal mode: paste
+-- km.set("v", "<leader>p", '"+p', { noremap = true, silent = true }) -- Visual mode: paste
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')

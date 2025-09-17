@@ -38,11 +38,21 @@ return {
       -- This opens a window that shows you all of the keymaps for the current
       -- Telescope picker. This is really useful to discover what Telescope can
       -- do as well as how to actually do it!
-
+      local actions = require("telescope.actions")
       require('telescope').setup {
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
+          },
+        },
+        defaults = {
+          mappings = {
+            i = {
+              ["<C-d>"] = actions.delete_buffer, -- delete buffer in insert mode
+            },
+            n = {
+              ["dd"] = actions.delete_buffer, -- delete buffer in normal mode
+            },
           },
         },
       }
@@ -63,6 +73,12 @@ return {
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+
+      -- Git in telescope
+      vim.keymap.set("n", "<leader>gc", builtin.git_commits, { desc = "Git commits" })
+      vim.keymap.set("n", "<leader>gb", builtin.git_bcommits, { desc = "Git buffer commits" })
+      vim.keymap.set("n", "<leader>gs", builtin.git_status, { desc = "Git status" })
+      vim.keymap.set("n", "<leader>gB", builtin.git_branches, { desc = "Git branches" })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
@@ -399,7 +415,8 @@ return {
     end,
   },
 
-  { -- Autocompletion
+  -- Autocompletion
+  {
     'saghen/blink.cmp',
     event = 'VimEnter',
     version = '1.*',
