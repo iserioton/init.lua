@@ -95,3 +95,44 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- vim.keymap.set("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
 -- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
 -- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
+
+
+-- Generic Run Command based on filetype
+vim.keymap.set("n", "<leader>rf", function()
+  local file = vim.fn.expand("%:p")
+  local ft = vim.bo.filetype
+  local cmd = ""
+
+  if ft == "c" then
+    local name_no_ext = vim.fn.expand("%:t:r")
+    local build_dir = "./build"
+    vim.fn.mkdir(build_dir, "p")
+    cmd = string.format(
+      "/usr/bin/gcc -g %s -o %s/%s && chmod +x %s/%s && %s/%s",
+      file, build_dir, name_no_ext, build_dir, name_no_ext, build_dir, name_no_ext
+    )
+  elseif ft == "cpp" then
+    local name_no_ext = vim.fn.expand("%:t:r")
+    local build_dir = "./build"
+    vim.fn.mkdir(build_dir, "p")
+    cmd = string.format(
+      "/usr/bin/g++ -g %s -o %s/%s && chmod +x %s/%s && %s/%s",
+      file, build_dir, name_no_ext, build_dir, name_no_ext, build_dir, name_no_ext
+    )
+  elseif ft == "python" then
+    cmd = "python3 " .. file
+  elseif ft == "javascript" then
+    cmd = "node " .. file
+  elseif ft == "typescript" then
+    cmd = "ts-node " .. file
+  elseif ft == "lua" then
+    cmd = "lua " .. file
+  elseif ft == "sh" then
+    cmd = "bash " .. file
+  else
+    vim.notify("No run command defined for filetype: " .. ft, vim.log.levels.WARN)
+    return
+  end
+
+  vim.cmd("split | terminal " .. cmd)
+end, { desc = "Run file based on filetype" })
