@@ -72,12 +72,6 @@ km("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 km("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 km("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
--- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
--- km("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
--- km("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
--- km("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
--- km("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
-
 -- Generic Run Command based on filetype
 km("n", "<leader>rf", function()
 	local file = vim.fn.expand("%:p")
