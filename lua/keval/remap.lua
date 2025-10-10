@@ -11,10 +11,10 @@ km("n", "<leader>tw", function()
 end, { desc = "Toggle line wrap" })
 
 -- Open a vertical split on the right
-km("n", "<leader>sv", ":vsplit<CR>", { desc = "Vertical split" })
+km("n", "<leader>vs", ":vsplit<CR>", { desc = "Vertical split" })
 
 -- Open a horizontal split below
-km("n", "<leader>sh", ":split<CR>", { desc = "Horizontal split" })
+km("n", "<leader>hs", ":split<CR>", { desc = "Horizontal split" })
 
 -- Close current split
 km("n", "<leader>sc", "<C-w>c", { desc = "Close split" })
