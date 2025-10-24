@@ -57,3 +57,6 @@ vim.o.scrolloff = 25
 -- instead raise a dialog asking if you wish to save the current file(s)
 -- See `:help 'confirm'`
 vim.o.confirm = true
+
+-- Turn on cursorless mode
+vim.o.guicursor = "a:Cursor/lCursor"
