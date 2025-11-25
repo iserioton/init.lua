@@ -59,4 +59,4 @@ vim.o.scrolloff = 25
 vim.o.confirm = true
 
 -- Turn on cursorless mode
-vim.o.guicursor = "a:Cursor/lCursor"
+-- vim.o.guicursor = "a:Cursor/lCursor"
