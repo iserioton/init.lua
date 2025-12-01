@@ -49,7 +49,7 @@ return {
 			vim.o.foldmethod = "expr"
 			vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 			vim.o.foldenable = true -- folds are enabled
-			vim.o.foldlevel = 99 -- open most folds by default
+			vim.o.foldlevel = 20 -- open most folds by default
 		end,
 	},
 	{

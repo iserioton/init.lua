@@ -124,7 +124,7 @@ return {
 			end
 
 			for i = 1, 9 do
-				vim.keymap.set("n", "<A-" .. i .. ">", function()
+				vim.keymap.set("n", "<leader>" .. i .. "", function()
 					local buflist = get_buffers()
 					local bufnr = buflist[i]
 					if bufnr then
