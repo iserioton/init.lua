@@ -69,24 +69,17 @@ return {
 						},
 					},
 					lualine_x = {
-						{
-							"filename",
-							file_status = true,
-							newfile_status = false,
-							path = 0,
-							shorting_target = 40,
-							symbols = {
-								modified = "[+]",
-								readonly = "[-]",
-								unnamed = "[No Name]",
-								newfile = "[New]",
-							},
-						},
 						"encoding",
 						"fileformat",
 						{ "filetype", icon_only = true },
 					},
 					lualine_y = {
+						{
+							"formatter",
+							fmt = function()
+								return require("keval.utils.formatter").current()
+							end,
+						},
 						{
 							"lsp_status",
 							icon = "", -- f013

@@ -109,6 +109,7 @@ return {
 				},
 			})
 
+			-- Prettier formats → ESLint highlights → ts_ls provides language features.
 			local servers = {
 				lua_ls = {
 					settings = {
@@ -119,11 +120,110 @@ return {
 						},
 					},
 				},
+				-- TypeScript / JavaScript LSP
+				ts_ls = {
+					filetypes = {
+						"javascript",
+						"javascriptreact",
+						"javascript.jsx",
+						"typescript",
+						"typescriptreact",
+						"typescript.tsx",
+					},
+					settings = {
+						javascript = {
+							inlayHints = {
+								includeInlayEnumMemberValueHints = true,
+								includeInlayFunctionLikeReturnTypeHints = true,
+								includeInlayParameterNameHints = "literals",
+								includeInlayParameterTypeHints = true,
+								includeInlayPropertyDeclarationTypeHints = true,
+								includeInlayVariableTypeHints = false,
+							},
+						},
+						typescript = {
+							inlayHints = {
+								includeInlayEnumMemberValueHints = true,
+								includeInlayFunctionLikeReturnTypeHints = true,
+								includeInlayParameterNameHints = "literals",
+								includeInlayParameterTypeHints = true,
+								includeInlayPropertyDeclarationTypeHints = true,
+								includeInlayVariableTypeHints = false,
+							},
+							preferences = {
+								includeInlayParameterNameHints = "literals",
+								importModuleSpecifier = "non-relative",
+							},
+						},
+					},
+				},
+				-- ESLint LSP (Diagnostics only)
+				eslint = {
+					on_attach = function(client, bufnr)
+						-- Don’t let eslint format
+						client.server_capabilities.documentFormattingProvider = false
+						client.server_capabilities.documentRangeFormattingProvider = false
+						print("ESLint attached to buffer: " .. bufnr)
+					end,
+					settings = function()
+						local eslint_utils = require("keval.utils.eslint")
+						if eslint_utils.has_config(0) then
+							return {
+								workingDirectory = { mode = "auto" },
+								format = false,
+							}
+						else
+							return eslint_utils.default_rules()
+						end
+					end,
+
+					filetypes = {
+						"javascript",
+						"javascriptreact",
+						"javascript.jsx",
+						"typescript",
+						"typescriptreact",
+						"typescript.tsx",
+						"vue",
+					},
+				},
 			}
 
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
-				"stylua", -- Used to format Lua code
+				"stylua",
+				"prettier",
+				"ts_ls",
+				"bash-language-server",
+				"bashls",
+				"beautysh",
+				"clang-format",
+				"clangd",
+				"cpplint",
+				"cpptools",
+				"css-lsp",
+				"cssls",
+				"dockerfile-language-server",
+				"dockerls",
+				"eslint-lsp",
+				"eslint",
+				"eslint_d",
+				"html-lsp",
+				"html",
+				"js-debug-adapter",
+				"json-lsp",
+				"jsonls",
+				"lua-language-server",
+				"lua_ls",
+				"prettier",
+				"prettierd",
+				"shellcheck",
+				"shfmt",
+				"sonarlint-language-server",
+				"sqlls",
+				"stylua",
+				"typescript-language-server",
+				"ts_ls",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 

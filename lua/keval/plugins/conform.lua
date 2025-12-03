@@ -28,6 +28,7 @@ return {
 				["clang-format"] = {
 					prepend_args = { "-style=file", "-fallback-style=LLVM" },
 				},
+				-- Prettier formats → ESLint highlights → ts_ls provides language features.
 				prettier = {
 					condition = function(ctx)
 						local project_has_prettier = vim.fs.find({
@@ -61,6 +62,8 @@ return {
 								"100",
 								"--semi",
 								"true",
+								"--arrow-parens",
+								"avoid",
 							}
 						end
 
