@@ -12,13 +12,60 @@ return {
 				cpp = { "clang-format" },
 				lua = { "stylua" },
 				go = { "gofmt" },
+				elixir = { "mix" },
 				javascript = { "prettier" },
 				typescript = { "prettier" },
-				elixir = { "mix" },
+				javascriptreact = { "prettier" },
+				typescriptreact = { "prettier" },
+				json = { "prettier" },
+				css = { "prettier" },
+				scss = { "prettier" },
+				html = { "prettier" },
+				markdown = { "prettier" },
+				graphql = { "prettier" },
 			},
 			formatters = {
 				["clang-format"] = {
 					prepend_args = { "-style=file", "-fallback-style=LLVM" },
+				},
+				prettier = {
+					condition = function(ctx)
+						local project_has_prettier = vim.fs.find({
+							".prettierrc",
+							".prettierrc.json",
+							".prettierrc.js",
+							".prettierrc.cjs",
+							"prettier.config.js",
+							"prettier.config.cjs",
+						}, { upward = true, path = ctx.filename })[1]
+
+						return true -- always run, but: default cfg if no file
+					end,
+					prepend_args = function(ctx)
+						local project_has_prettier = vim.fs.find({
+							".prettierrc",
+							".prettierrc.json",
+							".prettierrc.js",
+							".prettierrc.cjs",
+							"prettier.config.js",
+							"prettier.config.cjs",
+						}, { upward = true, path = ctx.filename })[1]
+
+						if not project_has_prettier then
+							return {
+								"--single-quote",
+								"true",
+								"--trailing-comma",
+								"all",
+								"--print-width",
+								"100",
+								"--semi",
+								"true",
+							}
+						end
+
+						return {}
+					end,
 				},
 			},
 		})
