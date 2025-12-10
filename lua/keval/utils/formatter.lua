@@ -14,7 +14,7 @@ function M.current()
 	end
 
 	-- For example: " prettier"
-	return " " .. formatters[1].name
+	return "  " .. formatters[1].name
 end
 
 return M

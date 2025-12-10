@@ -51,7 +51,7 @@ vim.o.list = false
 vim.o.inccommand = "split"
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.o.scrolloff = 25
+vim.o.scrolloff = 8
 
 -- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
 -- instead raise a dialog asking if you wish to save the current file(s)
