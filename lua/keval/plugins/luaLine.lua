@@ -86,7 +86,7 @@ return {
 							symbols = {
 								spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" },
 								done = "✓",
-								separator = " ",
+								separator = "  ",
 							},
 							ignore_lsp = {},
 						},
