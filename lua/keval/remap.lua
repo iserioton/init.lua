@@ -79,47 +79,45 @@ km("n", "<leader>rf", function()
 	local cmd = ""
 
 	if ft == "c" then
-		local name_no_ext = vim.fn.expand("%:t:r")
-		local build_dir = "./build"
-		vim.fn.mkdir(build_dir, "p")
+		local name = vim.fn.expand("%:t:r")
+		local build = "./build"
+		vim.fn.mkdir(build, "p")
+
 		cmd = string.format(
-			"/usr/bin/gcc -g %s -o %s/%s && chmod +x %s/%s && %s/%s",
+			[[bash -lc 'gcc -g "%s" -o "%s/%s" 2>&1 || exit $?; "%s/%s"']],
 			file,
-			build_dir,
-			name_no_ext,
-			build_dir,
-			name_no_ext,
-			build_dir,
-			name_no_ext
+			build,
+			name,
+			build,
+			name
 		)
 	elseif ft == "cpp" then
-		local name_no_ext = vim.fn.expand("%:t:r")
-		local build_dir = "./build"
-		vim.fn.mkdir(build_dir, "p")
+		local name = vim.fn.expand("%:t:r")
+		local build = "./build"
+		vim.fn.mkdir(build, "p")
+
 		cmd = string.format(
-			"/usr/bin/g++ -g %s -o %s/%s && chmod +x %s/%s && %s/%s",
+			[[bash -lc 'g++ -g "%s" -o "%s/%s" 2>&1 || exit $?; "%s/%s"']],
 			file,
-			build_dir,
-			name_no_ext,
-			build_dir,
-			name_no_ext,
-			build_dir,
-			name_no_ext
+			build,
+			name,
+			build,
+			name
 		)
 	elseif ft == "python" then
-		cmd = "python3 " .. file
+		cmd = [[bash -lc 'python3 "]] .. file .. [[" 2>&1']]
 	elseif ft == "javascript" then
-		cmd = "node " .. file
+		cmd = [[bash -lc 'node "]] .. file .. [[" 2>&1']]
 	elseif ft == "typescript" then
-		cmd = "ts-node " .. file
+		cmd = [[bash -lc 'ts-node "]] .. file .. [[" 2>&1']]
 	elseif ft == "lua" then
-		cmd = "lua " .. file
+		cmd = [[bash -lc 'lua "]] .. file .. [[" 2>&1']]
 	elseif ft == "sh" then
-		cmd = "bash " .. file
+		cmd = [[bash -lc 'bash "]] .. file .. [[" 2>&1']]
 	else
-		vim.notify("No run command defined for filetype: " .. ft, vim.log.levels.WARN)
+		vim.notify("No run command for filetype: " .. ft, vim.log.levels.WARN)
 		return
 	end
 
-	vim.cmd("split | terminal " .. cmd)
-end, { desc = "Run file based on filetype" })
+	vim.cmd("botright split | terminal " .. cmd)
+end, { desc = "Run file with visible errors" })

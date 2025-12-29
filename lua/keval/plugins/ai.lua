@@ -9,6 +9,12 @@ return {
 				silent = true,
 				replace_keycodes = false,
 			})
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = "c",
+				callback = function()
+					vim.b.copilot_enabled = false
+				end,
+			})
 		end,
 	},
 	{

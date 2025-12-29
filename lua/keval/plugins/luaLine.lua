@@ -46,7 +46,7 @@ return {
 							"buffers",
 							show_filename_only = true,
 							hide_filename_extension = false,
-							show_modified_status = false,
+							show_modified_status = true,
 							mode = 2,
 							max_length = vim.o.columns * 2 / 3,
 							use_mode_colors = true,
